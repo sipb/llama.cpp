@@ -31,6 +31,10 @@ def is_present(json, key):
         return False
     return True
 
+def check_api_key(auth_header):
+    with open(args.api_key) as f:
+        return auth_header + '\n' in f.readlines()
+
 #convert chat to prompt
 def convert_chat(messages):
     prompt = "" + args.chat_prompt.replace("\\n", "\n")
@@ -150,7 +154,7 @@ def make_resData_stream(data, chat=False, time_now = 0, start=False):
 @app.route('/chat/completions', methods=['POST'])
 @app.route('/v1/chat/completions', methods=['POST'])
 def chat_completions():
-    if (args.api_key != "" and request.headers["Authorization"].split()[1] != args.api_key):
+    if (args.api_key != "" and not check_api_key(request.headers["Authorization"].split()[1])):
         return Response(status=403)
     body = request.get_json()
     stream = False
@@ -186,7 +190,7 @@ def chat_completions():
 @app.route('/completions', methods=['POST'])
 @app.route('/v1/completions', methods=['POST'])
 def completion():
-    if (args.api_key != "" and request.headers["Authorization"].split()[1] != args.api_key):
+    if (args.api_key != "" and not check_api_key(request.headers["Authorization"].split()[1])):
         return Response(status=403)
     body = request.get_json()
     stream = False
