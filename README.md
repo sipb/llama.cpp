@@ -10,6 +10,7 @@ Inference of [LLaMA](https://arxiv.org/abs/2302.13971) model in pure C/C++
 
 ### Hot topics
 
+- New SOTA quantized models, including pure 2-bits: https://huggingface.co/ikawrakow
 - Collecting Apple Silicon performance stats:
   - M-series: https://github.com/ggerganov/llama.cpp/discussions/4167
   - A-series: https://github.com/ggerganov/llama.cpp/discussions/4508
@@ -103,6 +104,7 @@ as the main playground for developing new features for the [ggml](https://github
 - [x] [Qwen models](https://huggingface.co/models?search=Qwen/Qwen)
 - [x] [Mixtral MoE](https://huggingface.co/models?search=mistral-ai/Mixtral)
 - [x] [PLaMo-13B](https://github.com/ggerganov/llama.cpp/pull/3557)
+- [x] [GPT-2](https://huggingface.co/gpt2)
 
 **Multimodal models:**
 
@@ -117,6 +119,7 @@ as the main playground for developing new features for the [ggml](https://github
 - Python: [abetlen/llama-cpp-python](https://github.com/abetlen/llama-cpp-python)
 - Go: [go-skynet/go-llama.cpp](https://github.com/go-skynet/go-llama.cpp)
 - Node.js: [withcatai/node-llama-cpp](https://github.com/withcatai/node-llama-cpp)
+- JS/TS (llama.cpp server client): [lgrammel/modelfusion](https://modelfusion.dev/integration/model-provider/llamacpp)
 - Ruby: [yoshoku/llama_cpp.rb](https://github.com/yoshoku/llama_cpp.rb)
 - Rust: [mdrokz/rust-llama.cpp](https://github.com/mdrokz/rust-llama.cpp)
 - C#/.NET: [SciSharp/LLamaSharp](https://github.com/SciSharp/LLamaSharp)
@@ -134,6 +137,7 @@ as the main playground for developing new features for the [ggml](https://github
 - [semperai/amica](https://github.com/semperai/amica)
 - [psugihara/FreeChat](https://github.com/psugihara/FreeChat)
 - [ptsochantaris/emeltal](https://github.com/ptsochantaris/emeltal)
+- [iohub/collama](https://github.com/iohub/coLLaMA)
 
 ---
 
@@ -384,16 +388,30 @@ Building the program with BLAS support may lead to some performance improvements
 
   Check [BLIS.md](docs/BLIS.md) for more information.
 
-- #### Intel MKL
+- #### Intel oneMKL
+  - Using manual oneAPI installation:
+    By default, `LLAMA_BLAS_VENDOR` is set to `Generic`, so if you already sourced intel environment script and assign `-DLLAMA_BLAS=ON` in cmake, the mkl version of Blas will automatically been selected. Otherwise please install oneAPI and follow the below steps:
+      ```bash
+      mkdir build
+      cd build
+      source /opt/intel/oneapi/setvars.sh # You can skip this step if  in oneapi-runtime docker image, only required for manual installation
+      cmake .. -DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=Intel10_64lp -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_NATIVE=ON
+      cmake --build . --config Release
+      ```
 
-  By default, `LLAMA_BLAS_VENDOR` is set to `Generic`, so if you already sourced intel environment script and assign `-DLLAMA_BLAS=ON` in cmake, the mkl version of Blas will automatically been selected. You may also specify it by:
+  - Using oneAPI docker image:
+    If you do not want to source the environment vars and install oneAPI manually, you can also build the code using intel docker container: [oneAPI-runtime](https://hub.docker.com/r/intel/oneapi-runtime)
 
-  ```bash
-  mkdir build
-  cd build
-  cmake .. -DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=Intel10_64lp -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx
-  cmake --build . --config Release
-  ```
+      ```bash
+      mkdir build
+      cd build
+      cmake .. -DLLAMA_BLAS=ON -DLLAMA_BLAS_VENDOR=Intel10_64lp -DCMAKE_C_COMPILER=icx -DCMAKE_CXX_COMPILER=icpx -DLLAMA_NATIVE=ON
+      cmake --build . --config Release
+      ```
+
+  Building through oneAPI compilers will make avx_vnni instruction set available for intel processors that do not support avx512 and avx512_vnni.
+
+  Check [Optimizing and Running LLaMA2 on Intel® CPU](https://www.intel.com/content/www/us/en/content-details/791610/optimizing-and-running-llama2-on-intel-cpu.html) for more information.
 
 - #### cuBLAS
 
