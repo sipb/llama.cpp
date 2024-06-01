@@ -28,7 +28,7 @@ export async function* llama(prompt, params = {}, config = {}) {
 
   const completionParams = { ...paramDefaults, ...params, prompt };
 
-  const response = await fetch("/completion", {
+  const response = await fetch("/chat/completion", {
     method: 'POST',
     body: JSON.stringify(completionParams),
     headers: {
@@ -195,7 +195,7 @@ export const llamaComplete = async (params, controller, callback) => {
 // Get the model info from the server. This is useful for getting the context window and so on.
 export const llamaModelInfo = async () => {
   if (!generation_settings) {
-    generation_settings = await fetch("/model.json").then(r => r.json());
+    generation_settings = await fetch("/chat/model.json").then(r => r.json());
   }
   return generation_settings;
 }
