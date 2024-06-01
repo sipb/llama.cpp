@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="color-scheme" content="light dark">
-  <title>llama.cpp - chat</title>
+  <title>SIPB LLMs - chat</title>
 
   <style>
     body {
@@ -280,12 +280,12 @@
     var slot_id = -1;
 
     const session = signal({
-      prompt: "This is a conversation between User and Llama, a friendly chatbot. Llama is helpful, kind, honest, good at writing, and never fails to answer any requests immediately and with precision.",
+      prompt: "This is a conversation between User and Assistant, a helpful and friendly AI-powered chatbot. Assistant strives to provide clear, informative, thoughtful, and honest responses, to support users in their learning and exploration.",
       template: "{{prompt}}\n\n{{history}}\n{{char}}:",
       historyTemplate: "{{name}}: {{message}}",
       transcript: [],
       type: "chat",  // "chat" | "completion"
-      char: "Llama",
+      char: "Assistant",
       user: "User",
       image_selected: ''
     })
@@ -824,7 +824,7 @@
               <label for="template">Chat history template</label>
               <textarea id="template" name="historyTemplate" value="${session.value.historyTemplate}" rows=1 oninput=${updateSession}/>
             </div>
-            ${GrammarControl()}
+            <!-- ${GrammarControl()} -->
           </fieldset>
       `
       );
@@ -848,6 +848,8 @@
 
           ${session.value.type === 'chat' ? ChatConfigForm() : CompletionConfigForm()}
 
+          <details>
+          <summary>Configuration</summary>
           <fieldset class="two">
             ${IntField({ label: "Predictions", max: 2048, min: -1, name: "n_predict", value: params.value.n_predict })}
             ${FloatField({ label: "Temperature", max: 2.0, min: 0.0, name: "temperature", step: 0.01, value: params.value.temperature })}
@@ -858,6 +860,7 @@
             ${FloatField({ label: "Top-P sampling", max: 1.0, min: 0.0, name: "top_p", step: 0.01, value: params.value.top_p })}
             ${FloatField({ label: "Min-P sampling", max: 1.0, min: 0.0, name: "min_p", step: 0.01, value: params.value.min_p })}
           </fieldset>
+          </details>
           <details>
             <summary>More options</summary>
             <fieldset class="two">
@@ -1110,10 +1113,13 @@
           <header>
             <div class="grid-container">
               <div class="grid-item"></div>
-              <div class="grid-item"><h1>llama.cpp</h1></div>
+              <div class="grid-item"><h1>SIPB LLMs</h1></div>
               <div class="grid-item"><a class="customlink" href="index-new.html">New UI</a></div>
             </div>
           </header>
+
+          <p><i>Please keep in mind that it is important to <b>critically evaluate</b> and fact-check the AI's responses, as it may occasionally generate <b>incorrect or biased content</b>. The outputs should be used as a starting point for further discussion & reflection, rather than as a definitive source.</i></p>
+          <p><i>Please reach out to <a href="mailto:sipb-llms@mit.edu">sipb-llms@mit.edu</a> with any questions or to report any generated inappropriate or biased content. See <a href="https://llms.mit.edu">llms.mit.edu</a> for more information about the SIPB LLMs project.</i></p>
 
           <main id="content">
             <${chatStarted.value ? ChatLog : ConfigForm} />
