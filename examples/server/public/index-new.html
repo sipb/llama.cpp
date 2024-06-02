@@ -6,7 +6,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <meta name="color-scheme" content="light dark">
-  <title>llama.cpp - chat</title>
+  <title>SIPB LLMs - chat</title>
 
   <link rel="icon" type="image/x-icon" href="favicon.ico">
   <link rel="stylesheet" href="style.css">
@@ -669,80 +669,34 @@ return html`
       <fieldset class="dropdowns">
         <div>
           <select id="promptFormat" name="promptFormat" onchange=${updatePromptFormat}>
-              <option value="default">Prompt Style</option>
-              <option value=""></option>
-            <optgroup label="Common Prompt-Styles">
-              <option value="alpaca">Alpaca</option>
-              <option value="chatml">ChatML</option>
-              <option value="commandr">Command R/+</option>
-              <option value="llama2">Llama 2</option>
-              <option value="llama3">Llama 3</option>
-              <option value="phi3">Phi-3</option>
-              <option value="openchat">OpenChat/Starling</option>
-              <option value="vicuna">Vicuna</option>
-              <option value=""></option>
-            </optgroup>
-            <optgroup label="More Prompt-Styles">
-              <option value="vicuna">Airoboros L2</option>
-              <option value="vicuna">BakLLaVA-1</option>
-              <option value="alpaca">Code Cherry Pop</option>
-              <option value="deepseekCoder">Deepseek Coder</option>
-              <option value="chatml">Dolphin Mistral</option>
-              <option value="chatml">evolvedSeeker 1.3B</option>
-              <option value="vicuna">Goliath 120B</option>
-              <option value="vicuna">Jordan</option>
-              <option value="vicuna">LLaVA</option>
-              <option value="chatml">Leo Hessianai</option>
-              <option value="vicuna">Leo Mistral</option>
-              <option value="vicuna">Marx</option>
-              <option value="med42">Med42</option>
-              <option value="alpaca">MetaMath</option>
-              <option value="llama2">Mistral Instruct</option>
-              <option value="chatml">Mistral 7B OpenOrca</option>
-              <option value="alpaca">MythoMax</option>
-              <option value="neuralchat">Neural Chat</option>
-              <option value="vicuna">Nous Capybara</option>
-              <option value="nousHermes">Nous Hermes</option>
-              <option value="openchatMath">OpenChat Math</option>
-              <option value="chatml">OpenHermes 2.5-Mistral</option>
-              <option value="alpaca">Orca Mini v3</option>
-              <option value="orion">Orion</option>
-              <option value="vicuna">Samantha</option>
-              <option value="chatml">Samantha Mistral</option>
-              <option value="sauerkrautLM">SauerkrautLM</option>
-              <option value="vicuna">Scarlett</option>
-              <option value="starlingCode">Starling Coding</option>
-              <option value="alpaca">Sydney</option>
-              <option value="vicuna">Synthia</option>
-              <option value="vicuna">Tess</option>
-              <option value="yi34b">Yi-6/9/34B-Chat</option>
-              <option value="zephyr">Zephyr</option>
-              <option value=""></option>
-            </optgroup>
+            <option value="default">Prompt Style</option>
+            <option value="llama2">Llama 2 / Mixtral</option>
+            <option value="nousHermes">Nous Hermes</option>
+            <option value="llama3">Llama 3</option>
           </select>
           <select id="SystemPrompt" name="SystemPrompt" onchange=${updateSystemPrompt}>
             <option value="default">System Prompt</option>
             <option value="empty">None</option>
-            <option value="airoboros">Airoboros</option>
-            <option value="alpaca">Alpaca</option>
-            <option value="atlas">Atlas</option>
-            <option value="atlas_de">Atlas - DE</option>
-            <option value="cot">Chain of Tought</option>
-            <option value="commandrempty">Command R/+ (empty)</option>
-            <option value="commandrexample">Command R/+ (example)</option>
-            <option value="deduce">Critical Thinking</option>
-            <option value="deepseekcoder">Deepseek Coder</option>
-            <option value="jordan">Jordan</option>
-            <option value="leomistral">Leo Mistral</option>
-            <option value="med42">Med42</option>
+            <!-- <option value="airoboros">Airoboros</option> -->
+            <!-- <option value="alpaca">Alpaca</option> -->
+            <!-- <option value="atlas">Atlas</option> -->
+            <!-- <option value="atlas_de">Atlas - DE</option> -->
+            <option value="cot">Chain of Thought</option>
+            <!-- <option value="commandrempty">Command R/+ (empty)</option> -->
+            <!-- <option value="commandrexample">Command R/+ (example)</option> -->
+            <!-- <option value="deduce">Critical Thinking</option> -->
+            <!-- <option value="deepseekcoder">Deepseek Coder</option> -->
+            <!-- <option value="jordan">Jordan</option> -->
+            <!-- <option value="leomistral">Leo Mistral</option> -->
+            <!-- <option value="med42">Med42</option> -->
             <option value="migeltot">Migel's Tree of Thought</option>
-            <option value="mistralopenorca">Mistral OpenOrca</option>
-            <option value="orcamini">Orca Mini</option>
-            <option value="samantha">Samantha</option>
-            <option value="sauerkraut">Sauerkraut</option>
-            <option value="scarlett">Scarlett</option>
-            <option value="synthia">Synthia</option>
-            <option value="vicuna">Vicuna</option>
+            <!-- <option value="mistralopenorca">Mistral OpenOrca</option> -->
+            <!-- <option value="orcamini">Orca Mini</option> -->
+            <!-- <option value="samantha">Samantha</option> -->
+            <!-- <option value="sauerkraut">Sauerkraut</option> -->
+            <!-- <option value="scarlett">Scarlett</option> -->
+            <!-- <option value="synthia">Synthia</option> -->
+            <!-- <option value="vicuna">Vicuna</option> -->
           </select>
           <!--<select id="systemLanguage" name="systemLanguage">-->
             <!--<option value="default">English</option>-->
@@ -1063,11 +1017,11 @@ return html`
       return html`
         <div class="mode-${session.value.type}">
           <header>
-            <h2>llama.cpp</h2>
+            <h2>SIPB LLMs</h2>
             <div class="dropdown">
               <button class="dropbtn"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10" stroke-width="2"/></svg></button>
               <div class="dropdown-content" id="theme-selector">
-                <a href="/">Old UI</a>
+                <a href="/chat">Old UI</a>
                 <a href="#" data-theme="default">Snow Storm</a>
                 <a href="#" data-theme="polarnight">Polar Night</a>
                 <a href="#" data-theme="ketivah">Ketivah</a>
@@ -1077,6 +1031,9 @@ return html`
               </div>
             </div>
           </header>
+
+          <p><i>Please keep in mind that it is important to <b>critically evaluate</b> and fact-check the AI's responses, as it may occasionally generate <b>incorrect or biased content</b>. The outputs should be used as a starting point for further discussion & reflection, rather than as a definitive source.</i></p>
+          <p><i>Please reach out to <a href="mailto:sipb-llms@mit.edu">sipb-llms@mit.edu</a> with any questions or to report any generated inappropriate or biased content. See <a href="https://llms.mit.edu">llms.mit.edu</a> for more information about the SIPB LLMs project.</i></p>
 
           <main id="content">
             <${chatStarted.value ? ChatLog : ConfigForm} />

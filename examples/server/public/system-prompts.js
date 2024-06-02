@@ -1,6 +1,6 @@
 export const systemPrompts = {
   default: {
-    systemPrompt: "This is a conversation between a user and a friendly chatbot. The chatbot is helpful, kind, honest, good at writing, and never fails to answer any requests immediately and with precision."
+    systemPrompt: "This is a conversation between User and Assistant, a helpful and friendly AI-powered chatbot. Assistant strives to provide clear, informative, thoughtful, and honest responses, to support users in their learning and exploration."
   },
   empty: {
     systemPrompt: ""
