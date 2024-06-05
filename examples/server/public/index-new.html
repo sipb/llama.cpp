@@ -668,10 +668,9 @@ return html`
     html`
       <fieldset class="dropdowns">
         <div>
-          <select id="promptFormat" name="promptFormat" onchange=${updatePromptFormat}>
+          <select id="promptFormat" name="promptFormat" onchange=${updatePromptFormat} disabled>
             <option value="default">Prompt Style</option>
             <option value="llama2">Llama 2 / Mixtral</option>
-            <option value="nousHermes">Nous Hermes</option>
             <option value="llama3">Llama 3</option>
           </select>
           <select id="SystemPrompt" name="SystemPrompt" onchange=${updateSystemPrompt}>
@@ -1032,8 +1031,11 @@ return html`
             </div>
           </header>
 
-          <p><i>Please keep in mind that it is important to <b>critically evaluate</b> and fact-check the AI's responses, as it may occasionally generate <b>incorrect or biased content</b>. The outputs should be used as a starting point for further discussion & reflection, rather than as a definitive source.</i></p>
-          <p><i>Please reach out to <a href="mailto:sipb-llms@mit.edu">sipb-llms@mit.edu</a> with any questions or to report any generated inappropriate or biased content. See <a href="https://llms.mit.edu">llms.mit.edu</a> for more information about the SIPB LLMs project.</i></p>
+          <section id="leaflet" style="font-style: italic;">
+            <p>This <a href="https://mistral.ai/news/mixtral-of-experts/"><b>Mixtral-8x7B Instruct</b> model</a> is pre-trained on data extracted from the open Web and then fine-tuned for chat-/instruction-style inputs. Reportedly, it handles English, French, Italian, German, & Spanish, and can generate code. It uses open weights licensed under <a href="https://www.apache.org/licenses/LICENSE-2.0">Apache 2.0</a>.</p>
+            <p>Please keep in mind that it is important to <b>critically evaluate</b> and fact-check the AI's responses, as it may occasionally generate <b>incorrect or biased content</b>. The outputs should be used as a starting point for further discussion & reflection, rather than as a definitive source.</p>
+            <p>Please reach out to <a href="mailto:sipb-llms@mit.edu">sipb-llms@mit.edu</a> with any questions or to report any generated inappropriate or biased content. See <a href="https://llms.mit.edu">llms.mit.edu</a> for more information about the SIPB LLMs project.</p>
+          </section>
 
           <main id="content">
             <${chatStarted.value ? ChatLog : ConfigForm} />
